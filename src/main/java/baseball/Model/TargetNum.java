@@ -1,24 +1,38 @@
 package baseball.Model;
 
+import camp.nextstep.edu.missionutils.Randoms;
+
 import java.util.HashMap;
 import java.util.List;
 
 public class TargetNum {
 
-    private HashMap<Integer, Integer> target; // num : position
+    private HashMap<Integer, Integer> targetMap; // num : position
     private String BSN; // 000 -> BSN -> Ball / Strike / Nothing
+    private int[] numCheck;
 
-    public TargetNum(List<Integer> list) {
-        target = new HashMap<Integer,Integer>();
-        target.put(list.get(0), 1);
-        target.put(list.get(1), 2);
-        target.put(list.get(2), 3);
+    public TargetNum() {
+        numCheck = new int[10];
+        targetMap = new HashMap<Integer, Integer>();
+        setRandNum();
+
         BSN = "000"; // init
     }
 
-    public boolean calResult(int num) {
-        if(num == 0) return true;
+    private void setRandNum() {
+        int num;
+        int index = 1;
+        while (index <= 3) {
+            num = Randoms.pickNumberInRange(1, 9);
+            numCheck[num]++;
+            if (numCheck[num] == 1) {
+                targetMap.put(num, index);
+                index++;
+            }
+        }
+    }
 
+    public boolean calResult(int num) {
         int[] bs = {0, 0}; // Ball and Strike
         int[] guessArr = divideNum(num);
 
@@ -27,8 +41,8 @@ public class TargetNum {
         compareNum(bs, guessArr[2], 3);
         setBSN(bs);
 
-        if(bs[1] == 3) return false;
-        return true;
+        if (bs[1] == 3) return true;
+        return false;
     }
 
     private int[] divideNum(int num) {
@@ -45,8 +59,8 @@ public class TargetNum {
     }
 
     private void compareNum(int[] bs, int guessNum, int index) {
-        if (target.containsKey(guessNum)) {
-            if (target.get(guessNum) == index)
+        if (targetMap.containsKey(guessNum)) {
+            if (targetMap.get(guessNum) == index)
                 bs[1] += 1;
             else
                 bs[0] += 1;
