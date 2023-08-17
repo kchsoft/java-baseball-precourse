@@ -6,6 +6,7 @@ import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class Application {
     public static void main(String[] args) {
@@ -21,7 +22,7 @@ public class Application {
 
             while(result == false) {
                 System.out.printf("숫자를 입력해 주세요. : ");
-                guessNum =  Integer.parseInt(Console.readLine());
+                guessNum = inputGuessNum();
                 result = target.calResult(guessNum);
                 OutPutView.printResult(target.getBSN());
             }
@@ -30,5 +31,17 @@ public class Application {
             System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
             gameProcess = Integer.parseInt(Console.readLine());
         }
+    }
+
+    public static int inputGuessNum() {
+        String str = Console.readLine();
+        if(str.length() != 3 || !isStringNumber(str)) throw new IllegalArgumentException();
+        return Integer.parseInt(str);
+    }
+
+    public static boolean isStringNumber(String str) {
+        String pattern ="^[0-9]+$";
+        Pattern compiled = Pattern.compile(pattern);
+        return compiled.matcher(str).matches();
     }
 }
