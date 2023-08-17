@@ -8,10 +8,11 @@ import camp.nextstep.edu.missionutils.Randoms;
 public class Application {
     public static void main(String[] args) {
         int gameProcess = 1;
-        int guessNum = 0;
+        int guessNum;
 
         while(gameProcess == 1){
-            TargetNum target = new TargetNum(Randoms.pickUniqueNumbersInRange(1, 10, 3));
+            TargetNum target = new TargetNum(Randoms.pickUniqueNumbersInRange(1, 9, 3));
+            guessNum = 0;
 
             while(target.calResult(guessNum)) {
                 OutPutView.printResult(target.getBSN());

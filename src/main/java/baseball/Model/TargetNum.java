@@ -9,6 +9,7 @@ public class TargetNum {
     private String BSN; // 000 -> BSN -> Ball / Strike / Nothing
 
     public TargetNum(List<Integer> list) {
+        target = new HashMap<Integer,Integer>();
         target.put(list.get(0), 1);
         target.put(list.get(1), 2);
         target.put(list.get(2), 3);
@@ -16,6 +17,8 @@ public class TargetNum {
     }
 
     public boolean calResult(int num) {
+        if(num == 0) return true;
+
         int[] bs = {0, 0}; // Ball and Strike
         int[] guessArr = divideNum(num);
 
@@ -24,8 +27,8 @@ public class TargetNum {
         compareNum(bs, guessArr[2], 3);
         setBSN(bs);
 
-        if(bs[1] == 3) return true;
-        return false;
+        if(bs[1] == 3) return false;
+        return true;
     }
 
     private int[] divideNum(int num) {
