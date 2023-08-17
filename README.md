@@ -128,3 +128,12 @@
 ## 📝 License
 
 This project is [MIT](https://github.com/woowacourse/java-baseball-precourse/blob/master/LICENSE) licensed.
+
+
+## 구현 기능
+- 입력/게임 안내 출력
+- 무작위 3자리 숫자 생성(1~9)
+- 입력값 계산(ball/strike/낫싱)
+- 결과 출력
+- exception 구현
+- 게임 반복
